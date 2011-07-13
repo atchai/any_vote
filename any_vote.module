@@ -422,7 +422,12 @@ function any_vote_render_block($key) {
     $extra_classes .= ' user_voted';
   }
   $return_block['extra_classes'] = $extra_classes;
-
+  
+  // Set js variable for advanced theming of vote blocks.
+  $js_block = $return_block;
+  unset($js_block['votes_raw']);  // we don't need to bloat the js with all the raw votes.
+  drupal_add_js(array('any_vote' => array($key => $js_block)), 'setting');
+  
   return $return_block;
 }
 
