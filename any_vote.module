@@ -346,7 +346,6 @@ function any_vote_render_block($key) {
         }
         $link['attributes']['rel'] = 'nofollow';
 
-
         $link[title] = '*';
         if ($user_has_voted) {
           if ($user_votes_check[0]['value'] >= $option) {
@@ -356,6 +355,13 @@ function any_vote_render_block($key) {
         else {
           $link['href'] = 'any_vote/nojs/vote/' . $key . '/' . $criteria['content_id']. '/' . $option;
         }
+        
+        // add classes for values upto current points average
+        if (isset($return_block['votes']['vote_average']) 
+          && $option <= $return_block['votes']['vote_average'] ) { 
+           $link['attributes']['class'] =  ' average-active';
+        }
+        
         $link['rel'] = 'nofollow';
         $links[] = $link;
       }
